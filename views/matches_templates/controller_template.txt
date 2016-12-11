@@ -5,13 +5,13 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('{{MV}}_model', '{{MV}}');
 	}
 	
 	public function index()
 	{
-		$this->load->model('{{MV}}_model');
-		$data['content'] = $this->{{MV}}_model->get_all();
-		$this->load->view('{{MV}}_view', $data);
+		$data['content'] = $this->{{MV}}->get_all();
+		$this->load->view('{{MV}}', $data);
 	}
 		
 	public function get($id)
@@ -19,9 +19,8 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		$id = intval($id);
 		if($id!=0)
 		{
-			$this->load->model('{{MV}}_model');
-			$data['content'] = $this->{{MV}}_model->get($id);
-			$this->load->view('{{MV}}_view', $data);
+			$data['content'] = $this->{{MV}}->get($id);
+			$this->load->view('{{MV}}', $data);
 		}
 		else
 		{
@@ -35,13 +34,12 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		if($this->form_validation->run()===FALSE)
 		{
 			$data['input_element'] = array('name'=>'element', 'id'=>'element', 'value'=>set_value('element'));
-			$this->load->view('{{MV}}_view', $data);
+			$this->load->view('{{MV}}', $data);
 		}
 		else
 		{
 			$field = $this->input->post('element');
-			$this->load->model('{{MV}}_model');
-			if($this->{{MV}}_model->add(array('field_name'=>$field)))
+			if($this->{{MV}}->add(array('field_name'=>$field)))
 			{
 				$this->load->view('{{MV}}_success_page_view');
 			}
@@ -74,8 +72,8 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		{
 			$element = $this->input->post('element');
 			$id = $this->input->post('id');
-			$this->load->model('{{MV}}_model');
-			if($this->{{MV}}_model->update(array('element'=>$element),array('id'=>$id)))
+			$this->load->model('{{MV}}');
+			if($this->{{MV}}->update(array('element'=>$element),array('id'=>$id)))
 			{
 				$this->load->view('{{MV}}_success_page_view', $data);
 			}
@@ -90,8 +88,8 @@ class {{CONTROLLER}} extends {{C_EXTENDS}}_Controller
 		$id = intval($id);
 		if($id!=0)
 		{
-			$this->load->model('{{MV}}_model');
-			$data['content'] = $this->{{MV}}_model->delete();
+			$this->load->model('{{MV}}');
+			$data['content'] = $this->{{MV}}->delete();
 			$this->load->view('{{MV}}_view', $data);
 		}
 		else
