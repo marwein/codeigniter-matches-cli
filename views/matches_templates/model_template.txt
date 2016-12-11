@@ -1,14 +1,37 @@
 <?php  if(!defined('BASEPATH')) exit('No direct script access allowed');
 class {{MODEL}} extends {{MO_EXTENDS}}_Model
 {
+	public $element;
+
 	public function __construct()
 	{
 		parent::__construct();
 	}
 	
+	public function get($id){
+		return $this->db->get_where('{{MODEL}}', array('id' => $id))->row();
+	}
+
 	public function get_all()
 	{
-		return ('This is your first application');
+		$query = $this->db->get('{{MODEL}}');
+		return $query->result();
+	}
+
+	public function insert() {
+		$this->element = 'Element';
+
+		$this->db->insert('{{MODEL}}', $this);
+	}
+
+	public function update($id) {
+		$this->element = 'Element';
+
+		$this->db->update('{{MODEL}}', $this, array('id' => $id));
+	}
+
+	public function delete($id){
+		$this->db->delete('{{MODEL}}', array('id' => $id)); 
 	}
 }
 /* End of file '{{MODEL_FILE}}' */
